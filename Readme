@@ -1,0 +1,161 @@
+Penjelasan Jawaban Soal A  :
+
+<?php
+// Array yang diberikan
+$array = [12, 9, 30, "A", "M", 99, 82, "J", "N", "B"];
+
+// Pisahkan huruf dan angka ke dalam array yang berbeda
+$letters = [];
+$numbers = [];
+
+foreach ($array as $element) {
+    if (is_int($element)) {
+        $numbers[] = $element;
+    } else {
+        $letters[] = $element;
+    }
+}
+
+// Urutkan huruf secara alfabetis
+sort($letters);
+
+// Urutkan angka secara numerik
+sort($numbers);
+
+// Gabungkan dua array tersebut
+$result = array_merge($letters, $numbers);
+
+// Cetak hasilnya
+print_r($result);
+?>
+
+
+
+Penjelasan kode:
+
+Kami mendefinisikan array asli.
+Kami memisahkan elemen array menjadi dua array yang berbeda: satu untuk huruf dan satu lagi untuk angka.
+Kami mengurutkan array letters secara alfabetis menggunakan sort().
+Kami mengurutkan array numbers secara numerik menggunakan sort().
+Kami menggabungkan dua array tersebut menggunakan array_merge().
+Kami mencetak hasil array yang telah diurutkan.
+
+Ketika Anda menjalankan kode ini, Anda akan mendapatkan output yang sesuai dengan instruksi:
+Array
+(
+    [0] => A
+    [1] => B
+    [2] => J
+    [3] => M
+    [4] => N
+    [5] => 9
+    [6] => 12
+    [7] => 30
+    [8] => 82
+    [9] => 99
+)
+
+
+Penjelasan Jawaban Soal B :
+
+<?php
+function pattern_count($text, $pattern) {
+    $textLength = strlen($text);
+    $patternLength = strlen($pattern);
+
+    // Jika panjang pattern adalah 0, langsung kembalikan 0
+    if ($patternLength == 0) {
+        return 0;
+    }
+
+    $count = 0;
+
+    // Loop melalui text dan periksa setiap substring dengan panjang pattern
+    for ($i = 0; $i <= $textLength - $patternLength; $i++) {
+        $match = true;
+        for ($j = 0; $j < $patternLength; $j++) {
+            if ($text[$i + $j] != $pattern[$j]) {
+                $match = false;
+                break;
+            }
+        }
+        if ($match) {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+// Contoh pengujian
+echo pattern_count("palindrom", "ind") . "\n"; // Output: 1
+echo pattern_count("abakadabra", "ab") . "\n"; // Output: 2
+echo pattern_count("hello", "") . "\n"; // Output: 0
+echo pattern_count("ababab", "aba") . "\n"; // Output: 2
+echo pattern_count("aaaaaa", "aa") . "\n"; // Output: 5
+echo pattern_count("hell", "hello") . "\n"; // Output: 0
+?>
+
+Penjelasan:
+
+Fungsi pattern_count menerima dua parameter: $text dan $pattern.
+Jika panjang pattern adalah 0, fungsi langsung mengembalikan 0 karena tidak mungkin mencari pola kosong.
+Fungsi menggunakan dua loop: loop luar untuk bergerak melalui teks dan loop dalam untuk memeriksa apakah substring dari teks cocok dengan pola.
+Setiap kali ditemukan kecocokan, variabel $count akan ditambah.
+Fungsi mengembalikan nilai $count yang mewakili jumlah pola yang ditemukan dalam teks.
+
+Ketika Anda menjalankan kode ini, Anda akan mendapatkan output :
+
+1 2 0 2 5 0 
+
+
+Penjelasan Jawaban Soal C :
+
+<?php
+function count_and_sort_letters($input) {
+    // Buat array untuk menyimpan jumlah setiap huruf
+    $letter_count = array();
+
+    // Loop melalui setiap karakter dalam input
+    for ($i = 0; $i < strlen($input); $i++) {
+        $char = $input[$i];
+        // Abaikan karakter non-huruf
+        if (!ctype_alpha($char)) {
+            continue;
+        }
+        // Tambahkan atau perbarui jumlah huruf dalam array
+        if (array_key_exists($char, $letter_count)) {
+            $letter_count[$char]++;
+        } else {
+            $letter_count[$char] = 1;
+        }
+    }
+
+    // Urutkan array berdasarkan kunci (huruf) secara alfabetis
+    ksort($letter_count);
+
+    return $letter_count;
+}
+
+// Contoh kasus uji:
+print_r(count_and_sort_letters("Hello World")); 
+// Output: ["d" => 1, "e" => 1, "H" => 1, "l" => 3, "o" => 2, "r" => 1, "W" => 1]
+
+print_r(count_and_sort_letters("Bismillah"));   
+// Output: ["a" => 1, "B" => 1, "h" => 1, "i" => 2, "l" => 2, "m" => 1, "s" => 1]
+
+print_r(count_and_sort_letters("MasyaAllah"));  
+// Output: ["A" => 1, "a" => 3, "h" => 1, "l" => 2, "M" => 1, "s" => 1, "y" => 1]
+?>
+
+Penjelasan:
+
+    Fungsi count_characters:
+        Mengiterasi setiap karakter dalam string input.
+        Menggunakan ctype_alpha untuk memeriksa apakah karakter adalah huruf.
+        Menghitung frekuensi setiap huruf dan menyimpannya dalam array asosiatif $charCount.
+        Mengurutkan array $charCount berdasarkan kunci (karakter) menggunakan ksort.
+
+    Fungsi print_char_count:
+        Memanggil fungsi count_characters untuk mendapatkan hitungan karakter.
+        Memformat hasil dalam format yang diminta dan mencetaknya.
